@@ -3,6 +3,7 @@ package stryd
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 )
 
 var (
@@ -153,9 +154,10 @@ func (this *Client) Login() (*Token, error) {
 	return &token, nil
 }
 
-func (this *Client) Activities(updatedAfter int64) ([]Activity, error) {
+func (this *Client) Activities(updatedAfter int64, includeDeleted bool) ([]Activity, error) {
 
-	api := fmt.Sprintf("https://www.stryd.com/b/api/v1/users/calendar?updated_after=%d", updatedAfter)
+	api := fmt.Sprintf("https://www.stryd.com/b/api/v1/users/calendar?updated_after=%d&include_deleted=%v", updatedAfter, includeDeleted)
+	log.Println(api)
 
 	headers := map[string]string{
 		"authority":     "www.stryd.com",
